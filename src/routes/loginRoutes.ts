@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { RequestWithBody } from '../models/requestWithBody';
 
 export const router = Router();
 
@@ -18,7 +19,11 @@ router.get('/login', (req, res) => {
   `);
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', (req: RequestWithBody, res) => {
   const { email, password } = req.body;
-  res.send(email + password);
+  if (email) {
+    res.send(email.toUpperCase());
+  } else {
+    res.send('You must provide email');
+  }
 });
