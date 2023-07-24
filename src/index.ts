@@ -12,5 +12,5 @@ app.use(router);
 app.listen(3000, () => {
   console.log('listening on port 3000');
 });
-// ts-express-decorators reimplemented
+// ts-express-decorators is reimplemented
 

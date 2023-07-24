@@ -65,3 +65,5 @@ router.get('/logout', (req: RequestWithBody, res) => {
 router.get('/protected', requireAuthMiddleware, (req, res)=>{
 res.send('Welcome to the protected route logged User')
 })
+
+
