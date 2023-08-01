@@ -1,9 +1,17 @@
 import 'reflect-metadata';
+import { FactoryDecorator, FunctionDecorator } from './decorator.types';
+import { Methods } from './Methods';
 
-export function get(
-  path: string
-): (prototypeTarget: any, key: string, desc: PropertyDescriptor) => void {
-  return (prototypeTarget: any, key: string, desc: PropertyDescriptor) => {
-    Reflect.defineMetadata('path', path, prototypeTarget, key);
+function routeBinder(method: string): FactoryDecorator {
+  return (path: string): FunctionDecorator => {
+    return (prototypeTarget: any, key: string, desc: PropertyDescriptor) => {
+      Reflect.defineMetadata('path', path, prototypeTarget, key);
+      Reflect.defineMetadata(method, 'get', prototypeTarget, key);
+    };
   };
 }
+
+export const get = routeBinder(Methods.Get);
+export const put = routeBinder(Methods.Put);
+export const post = routeBinder(Methods.Post);
+export const del = routeBinder(Methods.Delete);

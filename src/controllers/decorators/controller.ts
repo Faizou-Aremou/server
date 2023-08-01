@@ -1,7 +1,6 @@
 import 'reflect-metadata';
-import { Router } from 'express';
-
-export const router = Router();
+import { AppRouter } from '../../AppRouter';
+import { Methods } from './Methods';
 
 export function controller(routePrefix: string): (target: Function) => void {
   return (target: Function) => {
@@ -9,10 +8,16 @@ export function controller(routePrefix: string): (target: Function) => void {
       .filter((key) => key !== 'constructor')
       .forEach((key) => {
         const routeHandler = target.prototype[key];
+        const router = AppRouter.getInstance();
         const path = Reflect.getMetadata('path', target.prototype, key);
+        const method: Methods | undefined = Reflect.getMetadata(
+          'method',
+          target.prototype,
+          key
+        );
 
-        if (path) {
-          router.get(`${routePrefix}${path}`, routeHandler);
+        if (path && method !== undefined) {
+          router[method](`${routePrefix}${path}`, routeHandler);
         }
       });
   };
