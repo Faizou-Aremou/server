@@ -1,9 +1,9 @@
 import { RequestHandler } from 'express';
 import 'reflect-metadata';
-import { FunctionDecorator } from './decorator.types';
+import { DecoratorFunction } from './decorator.types';
 import { MetadataKeys } from './MetadataKeys';
 
-export function use(middleware: RequestHandler): FunctionDecorator {
+export function use(middleware: RequestHandler): DecoratorFunction {
   return (prototypeTarget: any, key: string, desc: PropertyDescriptor) => {
     const middlewares =
       Reflect.getMetadata(MetadataKeys.Middleware, prototypeTarget, key) ?? [];

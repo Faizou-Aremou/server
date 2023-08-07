@@ -1,10 +1,10 @@
 import 'reflect-metadata';
-import { FactoryDecorator, FunctionDecorator } from './decorator.types';
+import { FactoryDecorator, DecoratorFunction } from './decorator.types';
 import { Methods } from './Methods';
 import { MetadataKeys } from './MetadataKeys';
 
 function routeBinder(method: string): FactoryDecorator {
-  return (path: string): FunctionDecorator => {
+  return (path: string): DecoratorFunction => {
     return (prototypeTarget: any, key: string, desc: PropertyDescriptor) => {
       Reflect.defineMetadata(MetadataKeys.Path, path, prototypeTarget, key);
       Reflect.defineMetadata(MetadataKeys.Method, method, prototypeTarget, key);
