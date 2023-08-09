@@ -1,5 +1,5 @@
 export type FactoryDecorator = (
-  path: string
+  path?: string
 ) => (prototypeTarget: any, key: string, desc: PropertyDescriptor) => void;
 
 export type DecoratorFunction = (

@@ -13,14 +13,16 @@ function bodyValidators(keys: string[]): RequestHandler {
 
     keys.forEach((key) => {
       if (!req.body[key]) {
-        res.status(422).send('Invalid request');
+        res.status(422).send(`Missing property ${key}`);
         return;
       }
     });
     next();
   };
 }
-export function controller(routePrefix: string): (target: Function) => void {
+export function controller(
+  routePrefix: string = ''
+): (target: Function) => void {
   return (target: Function) => {
     Object.getOwnPropertyNames(target.prototype)
       .filter((key) => key !== 'constructor')
