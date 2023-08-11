@@ -3,7 +3,7 @@ import { get, controller, post, bodyValidator } from './decorators';
 
 @controller('/auth')
 export class LoginController {
-  @get('login')
+   @get('login')
   getLogin(req: Request, res: Response): void {
     res.send(`
     <form method="POST">
